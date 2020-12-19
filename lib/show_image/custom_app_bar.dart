@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'camera_view.dart';
+
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
@@ -10,6 +12,84 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     Key key,
   })  : preferredSize = Size.fromHeight(50.0),
         super(key: key);
+
+  void _showFilterBottomSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 370,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(child: Text("Date")),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.date_range),
+                          color: Colors.green,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text("Camera")),
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          "Close",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Colors.red,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CameraView("assets/images/curiosity_fhaz.webp", "FHAZ"),
+                      CameraView("assets/images/curiosity_rhaz.jpg", "RHAZ"),
+                      CameraView("assets/images/curiosity_mast.webp", "MAST"),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CameraView(
+                          "assets/images/curiosity_chemcam.jpg", "CHEMCAM"),
+                      CameraView(
+                          "assets/images/opportunity_navcam.jpg", "NAVCAM"),
+                      SizedBox(
+                        width: 120,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +111,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   IconButton(
                     icon: Icon(Icons.tune),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => _showFilterBottomSheet(context),
                     color: Colors.black,
                   ),
                 ]),
