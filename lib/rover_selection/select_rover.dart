@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mars_rover_image_flutter/rover_selection/rover_view.dart';
+import 'package:mars_rover_image_flutter/utills/app_router.dart';
 
 class SelectRover extends StatefulWidget {
   @override
@@ -56,6 +57,9 @@ class _SelectRoverState extends State<SelectRover> {
         // isExtended: true,
         child: Icon(Icons.check),
         backgroundColor: Colors.green,
+        onPressed: () {
+          Navigator.pushNamed(context, ShowImageRoute);
+        },
       ),
     );
   }

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: ShowImageRoute,
+      initialRoute: RoverSelectionRoute,
     );
   }
 }
