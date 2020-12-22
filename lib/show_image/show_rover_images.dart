@@ -9,7 +9,8 @@ import 'package:mars_rover_image_flutter/show_image/custom_app_bar.dart';
 class ShowRoverImages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ShowImageBloc>(context).add(LoadingEvent());
+    // BlocProvider.of<ShowImageBloc>(context).add(LoadingEvent());
+    BlocProvider.of<ShowImageBloc>(context).add(FetchImageEvent());
     return BlocBuilder<ShowImageBloc, ShowImageState>(
         builder: (context, state) {
       if (state is LoadingState) {

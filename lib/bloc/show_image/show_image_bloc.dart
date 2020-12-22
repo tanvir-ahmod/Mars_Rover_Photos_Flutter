@@ -12,6 +12,9 @@ class ShowImageBloc extends Bloc<ShowImageEvent, ShowImageState> {
   Stream<ShowImageState> mapEventToState(ShowImageEvent event) async* {
     if (event is LoadingEvent) {
       yield LoadingState();
+    } else if (event is FetchImageEvent) {
+      var data = await _roverRepository.fetchImages();
+      yield FetchImageState();
     }
   }
 }
