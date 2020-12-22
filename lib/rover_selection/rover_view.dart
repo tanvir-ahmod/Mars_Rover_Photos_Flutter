@@ -7,7 +7,7 @@ class RoverView extends StatelessWidget {
 
   RoverView(this.position);
 
-  var rovers = [
+  static var rovers = [
     Rover(
         image: "assets/images/curiosity.webp",
         name: "Curiosity",

@@ -58,7 +58,8 @@ class _SelectRoverState extends State<SelectRover> {
         child: Icon(Icons.check),
         backgroundColor: Colors.green,
         onPressed: () {
-          Navigator.pushNamed(context, ShowImageRoute);
+          Navigator.pushNamed(context, ShowImageRoute,
+              arguments: RoverView.rovers[indicator.toInt()].name);
         },
       ),
     );

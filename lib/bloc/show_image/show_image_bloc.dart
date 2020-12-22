@@ -13,8 +13,8 @@ class ShowImageBloc extends Bloc<ShowImageEvent, ShowImageState> {
     if (event is LoadingEvent) {
       yield LoadingState();
     } else if (event is FetchImageEvent) {
-      var data = await _roverRepository.fetchImages();
-      yield FetchImageState();
+      var roverData = await _roverRepository.fetchImages(event.queryModel);
+      yield FetchImageState(roverData);
     }
   }
 }

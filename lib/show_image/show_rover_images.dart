@@ -4,13 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mars_rover_image_flutter/bloc/show_image/show_image_bloc.dart';
 import 'package:mars_rover_image_flutter/bloc/show_image/show_image_event.dart';
 import 'package:mars_rover_image_flutter/bloc/show_image/show_image_state.dart';
+import 'package:mars_rover_image_flutter/models/query_model.dart';
 import 'package:mars_rover_image_flutter/show_image/custom_app_bar.dart';
 
 class ShowRoverImages extends StatelessWidget {
+  final _roverName;
+
+  ShowRoverImages(this._roverName);
+
   @override
   Widget build(BuildContext context) {
-    // BlocProvider.of<ShowImageBloc>(context).add(LoadingEvent());
-    BlocProvider.of<ShowImageBloc>(context).add(FetchImageEvent());
+    BlocProvider.of<ShowImageBloc>(context).add(LoadingEvent());
+    BlocProvider.of<ShowImageBloc>(context)
+        .add(FetchImageEvent(QueryModel(roverName: _roverName)));
     return BlocBuilder<ShowImageBloc, ShowImageState>(
         builder: (context, state) {
       if (state is LoadingState) {

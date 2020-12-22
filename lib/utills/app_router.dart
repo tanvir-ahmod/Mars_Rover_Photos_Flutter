@@ -11,7 +11,8 @@ class AppRouter {
       case RoverSelectionRoute:
         return MaterialPageRoute(builder: (_) => SelectRover());
       case ShowImageRoute:
-        return MaterialPageRoute(builder: (_) => ShowRoverImages());
+        var roverName = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => ShowRoverImages(roverName));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
