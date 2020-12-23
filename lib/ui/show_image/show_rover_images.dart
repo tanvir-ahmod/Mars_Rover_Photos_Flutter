@@ -15,7 +15,6 @@ class ShowRoverImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ShowImageBloc>(context).add(LoadingEvent());
     BlocProvider.of<ShowImageBloc>(context)
         .add(FetchImageEvent(QueryModel(roverName: _roverName)));
     return BlocBuilder<ShowImageBloc, ShowImageState>(

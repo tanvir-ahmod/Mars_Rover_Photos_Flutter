@@ -1,12 +1,19 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mars_rover_image_flutter/bloc/show_image/show_image_bloc.dart';
+import 'package:mars_rover_image_flutter/bloc/show_image/show_image_event.dart';
+import 'package:mars_rover_image_flutter/bloc/show_image/show_image_state.dart';
+import 'package:mars_rover_image_flutter/models/query_model.dart';
 
 import 'camera_view.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
+
+  QueryModel _queryModel;
 
   CustomAppBar({
     Key key,
@@ -65,7 +72,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      CameraView("assets/images/curiosity_fhaz.webp", "FHAZ"),
+                      InkWell(
+                          onTap: () {
+                            _queryModel.camera = "FHAZ";
+                            BlocProvider.of<ShowImageBloc>(context)
+                                .add(FetchImageEvent(_queryModel));
+                          },
+                          child: CameraView(
+                              "assets/images/curiosity_fhaz.webp", "FHAZ")),
                       CameraView("assets/images/curiosity_rhaz.jpg", "RHAZ"),
                       CameraView("assets/images/curiosity_mast.webp", "MAST"),
                     ],
@@ -91,8 +105,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _appBar(BuildContext context, String label) {
     return SafeArea(
       child: Column(
         children: [
@@ -105,7 +118,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
               Chip(
                 onDeleted: () {},
-                label: Text('No Filter'),
+                label: Text(label),
               ),
               Expanded(
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -121,5 +134,21 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ShowImageBloc, ShowImageState>(
+        builder: (context, state) {
+      if (state is FetchImageState) {
+        _queryModel = state.queryModel;
+        return _appBar(
+            context,
+            state.queryModel?.earthDate == null
+                ? "No Filter"
+                : state.queryModel.earthDate);
+      }
+      return Container();
+    });
   }
 }
