@@ -6,6 +6,8 @@ import 'package:mars_rover_image_flutter/bloc/show_image/show_image_bloc.dart';
 import 'package:mars_rover_image_flutter/bloc/show_image/show_image_event.dart';
 import 'package:mars_rover_image_flutter/bloc/show_image/show_image_state.dart';
 import 'package:mars_rover_image_flutter/models/query_model.dart';
+import 'package:mars_rover_image_flutter/models/rover.dart';
+import 'package:mars_rover_image_flutter/models/rover_camera.dart';
 
 import 'camera_view.dart';
 
@@ -13,9 +15,11 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
+  Rover _rover;
   QueryModel _queryModel;
 
-  CustomAppBar({
+  CustomAppBar(
+    this._rover, {
     Key key,
   })  : preferredSize = Size.fromHeight(50.0),
         super(key: key);
@@ -29,7 +33,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     Expanded(child: Text("Date")),
@@ -46,57 +50,38 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Expanded(child: Text("Camera")),
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          "Close",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        color: Colors.red,
-                      )
-                    ],
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(child: Text("Camera")),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                      onPressed: () {
+                        BlocProvider.of<ShowImageBloc>(context)
+                            .add(FetchAvailableCamerasEvent(_rover.id));
+                      },
+                      child: Text(
+                        "Close",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: Colors.red,
+                    )
+                  ],
                 ),
               ),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            _queryModel.camera = "FHAZ";
-                            BlocProvider.of<ShowImageBloc>(context)
-                                .add(FetchImageEvent(_queryModel));
-                          },
-                          child: CameraView(
-                              "assets/images/curiosity_fhaz.webp", "FHAZ")),
-                      CameraView("assets/images/curiosity_rhaz.jpg", "RHAZ"),
-                      CameraView("assets/images/curiosity_mast.webp", "MAST"),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CameraView(
-                          "assets/images/curiosity_chemcam.jpg", "CHEMCAM"),
-                      CameraView(
-                          "assets/images/opportunity_navcam.jpg", "NAVCAM"),
-                      SizedBox(
-                        width: 120,
-                      )
-                    ],
-                  ),
-                ],
+              Expanded(
+                child: BlocBuilder<ShowImageBloc, ShowImageState>(
+                    builder: (context, state) {
+                  if (state is FetchAvailableCamerasState) {
+                    print(state.availableCameras.length);
+                    return _showAvailableCameras(
+                        context, state.availableCameras);
+                  }
+                  return Container();
+                }),
               ),
             ],
           ),
@@ -136,6 +121,20 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     );
   }
 
+  Widget _showAvailableCameras(
+      BuildContext context, List<RoverCamera> availableCameras) {
+    return GridView.builder(
+      itemCount: availableCameras.length,
+      shrinkWrap: true,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3),
+      itemBuilder: (BuildContext context, int index) {
+        return CameraView(
+            availableCameras[index].image, availableCameras[index].name);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ShowImageBloc, ShowImageState>(
@@ -148,7 +147,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 ? "No Filter"
                 : state.queryModel.earthDate);
       }
-      return Container();
+      return _appBar(context, "No Filter");
     });
   }
 }

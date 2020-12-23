@@ -31,7 +31,7 @@ class LocalRoverDataSource {
   }
 
   List<RoverCamera> getAvailableCameraById(int id) {
-    List<RoverCamera> availableCameras;
+    List<RoverCamera> availableCameras = [];
     switch (id) {
       case 1:
         {
@@ -44,7 +44,7 @@ class LocalRoverDataSource {
           availableCameras.add(
               RoverCamera("CHEMCAM", "assets/images/curiosity_chemcam.jpg"));
           availableCameras.add(
-              RoverCamera("NAVCAM", "- assets/images/opportunity_navcam.jpg"));
+              RoverCamera("NAVCAM", "assets/images/curiosity_navcam.jpg"));
         }
         break;
       case 2:

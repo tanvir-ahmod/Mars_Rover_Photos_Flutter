@@ -54,7 +54,7 @@ flutter:
      - assets/images/curiosity_fhaz.webp
      - assets/images/curiosity_mast.webp
      - assets/images/curiosity_chemcam.jpg
-     - assets/images/opportunity_navcam.jpg
+     - assets/images/curiosity_navcam.jpg
      - assets/images/curiosity.webp
      - assets/images/opportunity.webp
      - assets/images/spirit.webp

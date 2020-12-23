@@ -10,27 +10,32 @@ import 'package:mars_rover_image_flutter/models/rover_data.dart';
 import 'package:mars_rover_image_flutter/ui/show_image/custom_app_bar.dart';
 
 class ShowRoverImages extends StatelessWidget {
-  final Rover _roverName;
+  final Rover _rover;
+  RoverData _roverData;
 
-  ShowRoverImages(this._roverName);
+  ShowRoverImages(this._rover);
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<ShowImageBloc>(context)
-        .add(FetchImageEvent(QueryModel(roverName: _roverName.name)));
+        .add(FetchImageEvent(QueryModel(roverName: _rover.name)));
     return BlocBuilder<ShowImageBloc, ShowImageState>(
         builder: (context, state) {
       if (state is LoadingState) {
         return _onLoading();
-      } else if (state is FetchImageState) return _showImages(state.roverData);
-
+      } else if (state is FetchImageState) {
+        _roverData = state.roverData;
+        return _showImages(state.roverData);
+      } else {
+        return _roverData == null ? Container() : _showImages(_roverData);
+      }
       return Container();
     });
   }
 
   Widget _showImages(RoverData roverData) {
     return Scaffold(
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(_rover),
         body: GridView.builder(
           itemCount: roverData.photos.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

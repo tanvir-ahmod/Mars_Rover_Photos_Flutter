@@ -17,5 +17,9 @@ class ShowImageBloc extends Bloc<ShowImageEvent, ShowImageState> {
       var roverData = await _roverRepository.fetchImages(event.queryModel);
       yield FetchImageState(roverData, event.queryModel);
     }
+    else if (event is FetchAvailableCamerasEvent) {
+      var availableCameras =  _roverRepository.fetchAvailableCameraById(event.roverId);
+      yield FetchAvailableCamerasState(availableCameras);
+    }
   }
 }

@@ -15,3 +15,9 @@ class FilterEvent extends ShowImageEvent {
 
   FilterEvent(this.queryModel);
 }
+
+class FetchAvailableCamerasEvent extends ShowImageEvent {
+  int roverId;
+
+  FetchAvailableCamerasEvent(this.roverId);
+}

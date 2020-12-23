@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CameraView extends StatelessWidget {
@@ -8,23 +9,30 @@ class CameraView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset(image, height: 100),
+    return Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+          child: Image.asset(
+            image,
+            height: 80,
+            width: 80,
+            fit: BoxFit.fill,
           ),
-          Text(text)
-        ],
-      ),
+        ),
+        Material(
+            elevation: 1.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8.0),
+                  bottomRight: Radius.circular(8.0)),
+            ),
+            child: Padding(
+              padding:  EdgeInsets.only(bottom: 2.0),
+              child: Container(width: 80, child: Center(child: Text(text))),
+            ))
+      ],
     );
   }
 }
