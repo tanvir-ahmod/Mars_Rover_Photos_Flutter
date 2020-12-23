@@ -1,32 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mars_rover_image_flutter/ui/rover_selection/rover.dart';
+import 'package:mars_rover_image_flutter/models/rover.dart';
 
 class RoverView extends StatelessWidget {
-  int position;
+  final Rover _rover;
 
-  RoverView(this.position);
-
-  static var rovers = [
-    Rover(
-        image: "assets/images/curiosity.webp",
-        name: "Curiosity",
-        launchDate: "2011-11-26",
-        landingDate: "2012-08-06",
-        currentStatus: "Active"),
-    Rover(
-        image: "assets/images/opportunity.webp",
-        name: "Opportunity",
-        launchDate: "2003-07-07",
-        landingDate: "2004-01-25",
-        currentStatus: "Complete"),
-    Rover(
-        image: "assets/images/spirit.webp",
-        name: "Spirit",
-        launchDate: "2003-06-10",
-        landingDate: "2004-01-04",
-        currentStatus: "Complete"),
-  ];
+  RoverView(this._rover);
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +16,14 @@ class RoverView extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(rovers[position].image,
-                  height: 300, fit: BoxFit.fill),
+              child: Image.asset(_rover.image, height: 300, fit: BoxFit.fill),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
                   Expanded(child: Text("Name")),
-                  Expanded(child: Text(rovers[position].name))
+                  Expanded(child: Text(_rover.name))
                 ],
               ),
             ),
@@ -54,7 +32,7 @@ class RoverView extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(child: Text("Launch Date")),
-                  Expanded(child: Text(rovers[position].launchDate))
+                  Expanded(child: Text(_rover.launchDate))
                 ],
               ),
             ),
@@ -63,7 +41,7 @@ class RoverView extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(child: Text("Landing Date")),
-                  Expanded(child: Text(rovers[position].landingDate))
+                  Expanded(child: Text(_rover.landingDate))
                 ],
               ),
             ),
@@ -72,7 +50,7 @@ class RoverView extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(child: Text("Status")),
-                  Expanded(child: Text(rovers[position].currentStatus))
+                  Expanded(child: Text(_rover.currentStatus))
                 ],
               ),
             ),

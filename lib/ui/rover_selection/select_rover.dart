@@ -1,6 +1,11 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mars_rover_image_flutter/bloc/rover_selection/rover_selection_bloc.dart';
+import 'package:mars_rover_image_flutter/bloc/rover_selection/rover_selection_event.dart';
+import 'package:mars_rover_image_flutter/bloc/rover_selection/rover_selection_state.dart';
+import 'package:mars_rover_image_flutter/models/rover.dart';
 import 'package:mars_rover_image_flutter/ui/rover_selection/rover_view.dart';
 import 'package:mars_rover_image_flutter/utills/app_router.dart';
 
@@ -13,14 +18,33 @@ class _SelectRoverState extends State<SelectRover> {
   final _controller = new PageController();
   double indicator = 0;
 
-  final List<Widget> _pages = <Widget>[
-    RoverView(0),
-    RoverView(1),
-    RoverView(2),
-  ];
+  List<Widget> _pages = [];
+  List<Rover> _rovers = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<RoverSelectionBloc>(context).add(FetchRoverEvent());
+    return BlocBuilder<RoverSelectionBloc, RoverSelectionState>(
+        builder: (context, state) {
+      if (state is FetchRoverState) {
+        _rovers = state.rovers;
+        _pages.clear();
+        for (var rover in _rovers) {
+          _pages.add(RoverView(rover));
+        }
+        return _roverSelectionUI();
+      }
+
+      return Container();
+    });
+  }
+
+  Widget _roverSelectionUI() {
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -35,7 +59,7 @@ class _SelectRoverState extends State<SelectRover> {
               ),
             ),
             DotsIndicator(
-                dotsCount: _pages.length,
+                dotsCount: _rovers.length,
                 position: indicator,
                 decorator: DotsDecorator(activeColor: Colors.green)),
             Expanded(
@@ -59,7 +83,7 @@ class _SelectRoverState extends State<SelectRover> {
         backgroundColor: Colors.green,
         onPressed: () {
           Navigator.pushNamed(context, ShowImageRoute,
-              arguments: RoverView.rovers[indicator.toInt()].name);
+              arguments: _rovers[indicator.toInt()]);
         },
       ),
     );

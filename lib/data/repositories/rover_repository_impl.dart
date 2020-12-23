@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:mars_rover_image_flutter/data/local_data_sources/local_rover_data_source.dart';
+import 'package:mars_rover_image_flutter/data/repositories/rover_repository.dart';
 import 'package:mars_rover_image_flutter/models/query_model.dart';
+import 'package:mars_rover_image_flutter/models/rover.dart';
+import 'package:mars_rover_image_flutter/models/rover_camera.dart';
 import 'package:mars_rover_image_flutter/models/rover_data.dart';
-import 'package:mars_rover_image_flutter/repositories/rover_repository.dart';
 import 'package:http/http.dart' as http;
 
 class RoverRepositoryImpl extends RoverRepository {
@@ -25,5 +28,15 @@ class RoverRepositoryImpl extends RoverRepository {
     } else {
       throw Exception('Failed to load album');
     }
+  }
+
+  @override
+  List<RoverCamera> fetchAvailableCameraById(int id){
+    return LocalRoverDataSource().getAvailableCameraById(id);
+  }
+
+  @override
+  List<Rover> fetchRovers() {
+    return LocalRoverDataSource().getAllRovers();
   }
 }

@@ -58,6 +58,10 @@ flutter:
      - assets/images/curiosity.webp
      - assets/images/opportunity.webp
      - assets/images/spirit.webp
+     - assets/images/opportunity_navcam.jpg
+     - assets/images/opportunity_pancam.jpg
+     - assets/images/spirit_navcam.jpg
+     - assets/images/spirit_pancam.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
