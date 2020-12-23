@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mars_rover_image_flutter/rover_selection/select_rover.dart';
-import 'package:mars_rover_image_flutter/show_image/show_rover_images.dart';
+import 'package:mars_rover_image_flutter/ui/rover_selection/select_rover.dart';
+import 'package:mars_rover_image_flutter/ui/show_image/show_rover_images.dart';
 
 const String RoverSelectionRoute = "/";
 const String ShowImageRoute = "/show_images";

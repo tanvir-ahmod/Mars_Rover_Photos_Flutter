@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mars_rover_image_flutter/rover_selection/rover.dart';
+import 'package:mars_rover_image_flutter/ui/rover_selection/rover.dart';
 
 class RoverView extends StatelessWidget {
   int position;

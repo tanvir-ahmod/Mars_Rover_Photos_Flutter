@@ -1,7 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mars_rover_image_flutter/rover_selection/rover_view.dart';
+import 'package:mars_rover_image_flutter/ui/rover_selection/rover_view.dart';
 import 'package:mars_rover_image_flutter/utills/app_router.dart';
 
 class SelectRover extends StatefulWidget {
