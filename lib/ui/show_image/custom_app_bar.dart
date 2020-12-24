@@ -11,18 +11,32 @@ import 'package:mars_rover_image_flutter/models/rover_camera.dart';
 
 import 'camera_view.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
   Rover _rover;
-  QueryModel _queryModel;
 
   CustomAppBar(
     this._rover, {
     Key key,
   })  : preferredSize = Size.fromHeight(50.0),
         super(key: key);
+
+  @override
+  _CustomAppBarState createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  QueryModel _queryModel;
+  List<RoverCamera> availableCameras = [];
+
+  @override
+  void initState() {
+    BlocProvider.of<ShowImageBloc>(context)
+        .add(FetchAvailableCamerasEvent(widget._rover.id));
+    super.initState();
+  }
 
   void _showFilterBottomSheet(BuildContext context) {
     showModalBottomSheet<void>(
@@ -60,8 +74,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                         borderRadius: BorderRadius.circular(18.0),
                       ),
                       onPressed: () {
-                        BlocProvider.of<ShowImageBloc>(context)
-                            .add(FetchAvailableCamerasEvent(_rover.id));
+                        Navigator.pop(context);
                       },
                       child: Text(
                         "Close",
@@ -72,17 +85,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: BlocBuilder<ShowImageBloc, ShowImageState>(
-                    builder: (context, state) {
-                  if (state is FetchAvailableCamerasState) {
-                    print(state.availableCameras.length);
-                    return _showAvailableCameras(
-                        context, state.availableCameras);
-                  }
-                  return Container();
-                }),
-              ),
+              Expanded(child: _showAvailableCameras(context, availableCameras)),
             ],
           ),
         );
@@ -126,11 +129,18 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return GridView.builder(
       itemCount: availableCameras.length,
       shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3),
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       itemBuilder: (BuildContext context, int index) {
-        return CameraView(
-            availableCameras[index].image, availableCameras[index].name);
+        return InkWell(
+          onTap: () {
+            _queryModel.camera = availableCameras[index].name;
+            BlocProvider.of<ShowImageBloc>(context)
+                .add(FetchImageEvent(_queryModel));
+          },
+          child: CameraView(
+              availableCameras[index].image, availableCameras[index].name),
+        );
       },
     );
   }
@@ -147,6 +157,11 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 ? "No Filter"
                 : state.queryModel.earthDate);
       }
+
+      if (state is FetchAvailableCamerasState) {
+        availableCameras = state.availableCameras;
+      }
+
       return _appBar(context, "No Filter");
     });
   }
