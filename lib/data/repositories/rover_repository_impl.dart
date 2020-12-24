@@ -12,8 +12,7 @@ class RoverRepositoryImpl extends RoverRepository {
   final _baseUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers";
   final _sol = "1000";
 
-  // final _apiKey = "DEMO_KEY";
-  final _apiKey = "nhI0jvGLB3bWYZc6cZfPirWcJbycbz4Clj7AkXcB";
+  final _apiKey = "DEMO_KEY"; // replace API_KEY here
 
   Future<RoverData> fetchImages(QueryModel queryModel) async {
     var queryString =
