@@ -41,12 +41,19 @@ class ShowRoverImages extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
           itemBuilder: (BuildContext context, int index) {
-            return ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
+            return InkWell(
+              onTap: () => _showDialog(
+                  context,
+                  _rover.name,
                   roverData.photos[index].img_src,
-                  fit: BoxFit.fill,
-                ));
+                  roverData.photos[index].earth_date),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    roverData.photos[index].img_src,
+                    fit: BoxFit.fill,
+                  )),
+            );
           },
         ));
   }
@@ -63,5 +70,67 @@ class ShowRoverImages extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _showDialog(
+      BuildContext context, String name, String image, String earthDate) {
+    Dialog errorDialog = Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      //this right here
+      child: Stack(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(image, fit: BoxFit.fill),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text("Name")),
+                      Expanded(child: Text(name))
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text("Earth Date")),
+                      Expanded(child: Text(earthDate))
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            right: 4.0,
+            top: 4.0,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Align(
+                alignment: Alignment.topRight,
+                child: CircleAvatar(
+                  radius: 14.0,
+                  backgroundColor: Colors.red,
+                  child: Icon(Icons.close, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+        context: context, builder: (BuildContext context) => errorDialog);
   }
 }
