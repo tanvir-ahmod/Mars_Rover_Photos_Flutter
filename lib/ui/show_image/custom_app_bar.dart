@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mars_rover_image_flutter/bloc/show_image/show_image_bloc.dart';
 import 'package:mars_rover_image_flutter/bloc/show_image/show_image_event.dart';
 import 'package:mars_rover_image_flutter/bloc/show_image/show_image_state.dart';
@@ -30,6 +31,7 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   QueryModel _queryModel;
   List<RoverCamera> availableCameras = [];
+  DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -55,7 +57,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () => _selectDate(context),
                           icon: Icon(Icons.date_range),
                           color: Colors.green,
                         ),
@@ -74,6 +76,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         borderRadius: BorderRadius.circular(18.0),
                       ),
                       onPressed: () {
+                        _queryModel.camera = null;
+                        BlocProvider.of<ShowImageBloc>(context)
+                            .add(FetchImageEvent(_queryModel));
                         Navigator.pop(context);
                       },
                       child: Text(
@@ -105,7 +110,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 color: Colors.black,
               ),
               Chip(
-                onDeleted: () {},
+                onDeleted: () {
+                  _queryModel.earthDate = null;
+                  BlocProvider.of<ShowImageBloc>(context)
+                      .add(FetchImageEvent(_queryModel));
+                },
                 label: Text(label),
               ),
               Expanded(
@@ -153,16 +162,32 @@ class _CustomAppBarState extends State<CustomAppBar> {
         _queryModel = state.queryModel;
         return _appBar(
             context,
-            state.queryModel?.earthDate == null
+            _queryModel.earthDate == null
                 ? "No Filter"
-                : state.queryModel.earthDate);
+                : _queryModel.earthDate);
       }
 
       if (state is FetchAvailableCamerasState) {
         availableCameras = state.availableCameras;
       }
 
-      return _appBar(context, "No Filter");
+      return _appBar(context,
+          _queryModel.earthDate == null ? "No Filter" : _queryModel.earthDate);
     });
+  }
+
+  void _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != selectedDate) {
+      _queryModel.earthDate = DateFormat('yyyy-MM-dd').format(picked);
+      selectedDate = picked;
+      BlocProvider.of<ShowImageBloc>(context).add(FetchImageEvent(_queryModel));
+      Navigator.pop(context);
+    }
   }
 }

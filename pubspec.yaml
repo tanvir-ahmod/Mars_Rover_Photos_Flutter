@@ -31,6 +31,7 @@ dependencies:
   dots_indicator: ^1.2.0
   flutter_bloc: ^6.1.0
   http: ^0.12.2
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

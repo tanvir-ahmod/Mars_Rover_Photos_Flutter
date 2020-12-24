@@ -11,15 +11,21 @@ import 'package:http/http.dart' as http;
 class RoverRepositoryImpl extends RoverRepository {
   final _baseUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers";
   final _sol = "1000";
-  final _apiKey = "DEMO_KEY";
+
+  // final _apiKey = "DEMO_KEY";
+  final _apiKey = "nhI0jvGLB3bWYZc6cZfPirWcJbycbz4Clj7AkXcB";
 
   Future<RoverData> fetchImages(QueryModel queryModel) async {
     var queryString =
-        '$_baseUrl/${queryModel.roverName}/photos?sol=$_sol&api_key=$_apiKey';
-    if (queryModel.camera != null)
+        '$_baseUrl/${queryModel.roverName}/photos?api_key=$_apiKey';
+    if (queryModel.camera != null) {
       queryString += "&camera=${queryModel.camera}";
+    }
     if (queryModel.earthDate != null)
       queryString += "&earth_date=${queryModel.earthDate}";
+
+    if ( queryModel.earthDate == null)
+      queryString += "&sol=$_sol";
 
     final response = await http.get(queryString);
 
@@ -31,7 +37,7 @@ class RoverRepositoryImpl extends RoverRepository {
   }
 
   @override
-  List<RoverCamera> fetchAvailableCameraById(int id){
+  List<RoverCamera> fetchAvailableCameraById(int id) {
     return LocalRoverDataSource().getAvailableCameraById(id);
   }
 
