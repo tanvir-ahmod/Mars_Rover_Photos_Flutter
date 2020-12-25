@@ -125,6 +125,21 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 },
                 label: Text(label),
               ),
+              SizedBox(width: 10),
+              (() {
+                if (_queryModel.camera != null) {
+                  return Chip(
+                    onDeleted: () {
+                      _queryModel.camera = null;
+                      BlocProvider.of<ShowImageBloc>(context)
+                          .add(FetchImageEvent(_queryModel));
+                    },
+                    label: Text(_queryModel.camera),
+                  );
+                }
+
+                return Container();
+              }()),
               Expanded(
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   IconButton(
