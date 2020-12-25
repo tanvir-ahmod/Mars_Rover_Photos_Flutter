@@ -18,59 +18,62 @@ class RoverView extends StatelessWidget {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(top: 20.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(_rover.image, height: 300, fit: BoxFit.fill),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(child: Text("Name", style: _titleTextStyle)),
-                  Expanded(child: Text(_rover.name, style: _subTitleTextStyle))
-                ],
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(_rover.image, height: 300, fit: BoxFit.fill),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(child: Text("Launch Date", style: _titleTextStyle)),
-                  Expanded(
-                      child: Text(_rover.launchDate, style: _subTitleTextStyle))
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(child: Text("Name", style: _titleTextStyle)),
+                    Expanded(child: Text(_rover.name, style: _subTitleTextStyle))
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Text(
-                    "Landing Date",
-                    style: _titleTextStyle,
-                  )),
-                  Expanded(
-                      child:
-                          Text(_rover.landingDate, style: _subTitleTextStyle))
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(child: Text("Launch Date", style: _titleTextStyle)),
+                    Expanded(
+                        child: Text(_rover.launchDate, style: _subTitleTextStyle))
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(child: Text("Status", style: _titleTextStyle)),
-                  Expanded(
-                      child: Text(_rover.currentStatus,
-                          style:
-                              TextStyle(fontSize: 16, color: statusTextColor)))
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                      "Landing Date",
+                      style: _titleTextStyle,
+                    )),
+                    Expanded(
+                        child:
+                            Text(_rover.landingDate, style: _subTitleTextStyle))
+                  ],
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(child: Text("Status", style: _titleTextStyle)),
+                    Expanded(
+                        child: Text(_rover.currentStatus,
+                            style:
+                                TextStyle(fontSize: 16, color: statusTextColor)))
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
