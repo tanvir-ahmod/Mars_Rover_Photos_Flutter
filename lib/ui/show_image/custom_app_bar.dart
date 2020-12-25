@@ -51,12 +51,23 @@ class _CustomAppBarState extends State<CustomAppBar> {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                         child: Text(
                       "Date",
                       style: TextStyle(fontSize: 18),
                     )),
+                    (() {
+                      if (_queryModel.earthDate != null)
+                        return Expanded(
+                          child: Text(
+                            _queryModel.earthDate,
+                            style: TextStyle(color: Colors.grey, fontSize: 18),
+                          ),
+                        );
+                      return Container();
+                    }()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
