@@ -8,6 +8,7 @@ import 'package:mars_rover_image_flutter/models/query_model.dart';
 import 'package:mars_rover_image_flutter/models/rover.dart';
 import 'package:mars_rover_image_flutter/models/rover_data.dart';
 import 'package:mars_rover_image_flutter/ui/show_image/custom_app_bar.dart';
+import 'package:mars_rover_image_flutter/utills/constants.dart';
 
 class ShowRoverImages extends StatelessWidget {
   final Rover _rover;
@@ -29,7 +30,6 @@ class ShowRoverImages extends StatelessWidget {
       } else {
         return _roverData == null ? Container() : _showImages(_roverData);
       }
-      return Container();
     });
   }
 
@@ -93,8 +93,14 @@ class ShowRoverImages extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Expanded(child: Text("Name")),
-                      Expanded(child: Text(name))
+                      Expanded(
+                          child: Text(
+                        "Name",
+                        style: AppConstants.titleTextStyle,
+                      )),
+                      Expanded(
+                          child:
+                              Text(name, style: AppConstants.subTitleTextStyle))
                     ],
                   ),
                 ),
@@ -102,8 +108,14 @@ class ShowRoverImages extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Expanded(child: Text("Earth Date")),
-                      Expanded(child: Text(earthDate))
+                      Expanded(
+                          child: Text(
+                        "Earth Date",
+                        style: AppConstants.titleTextStyle,
+                      )),
+                      Expanded(
+                          child: Text(earthDate,
+                              style: AppConstants.subTitleTextStyle))
                     ],
                   ),
                 ),

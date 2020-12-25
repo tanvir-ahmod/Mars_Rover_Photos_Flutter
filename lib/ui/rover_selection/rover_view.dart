@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mars_rover_image_flutter/models/rover.dart';
+import 'package:mars_rover_image_flutter/utills/constants.dart';
 
 class RoverView extends StatelessWidget {
   final Rover _rover;
 
   RoverView(this._rover);
-
-  TextStyle _titleTextStyle = TextStyle(fontSize: 18);
-  TextStyle _subTitleTextStyle = TextStyle(fontSize: 16, color: Colors.grey);
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +28,8 @@ class RoverView extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Expanded(child: Text("Name", style: _titleTextStyle)),
-                    Expanded(child: Text(_rover.name, style: _subTitleTextStyle))
+                    Expanded(child: Text("Name", style: AppConstants.titleTextStyle)),
+                    Expanded(child: Text(_rover.name, style: AppConstants.subTitleTextStyle))
                   ],
                 ),
               ),
@@ -39,9 +37,9 @@ class RoverView extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Expanded(child: Text("Launch Date", style: _titleTextStyle)),
+                    Expanded(child: Text("Launch Date", style: AppConstants.titleTextStyle)),
                     Expanded(
-                        child: Text(_rover.launchDate, style: _subTitleTextStyle))
+                        child: Text(_rover.launchDate, style: AppConstants.subTitleTextStyle))
                   ],
                 ),
               ),
@@ -52,11 +50,11 @@ class RoverView extends StatelessWidget {
                     Expanded(
                         child: Text(
                       "Landing Date",
-                      style: _titleTextStyle,
+                      style: AppConstants.titleTextStyle,
                     )),
                     Expanded(
                         child:
-                            Text(_rover.landingDate, style: _subTitleTextStyle))
+                            Text(_rover.landingDate, style: AppConstants.subTitleTextStyle))
                   ],
                 ),
               ),
@@ -64,7 +62,7 @@ class RoverView extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Expanded(child: Text("Status", style: _titleTextStyle)),
+                    Expanded(child: Text("Status", style: AppConstants.titleTextStyle)),
                     Expanded(
                         child: Text(_rover.currentStatus,
                             style:
