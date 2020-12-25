@@ -49,16 +49,23 @@ class _CustomAppBarState extends State<CustomAppBar> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Row(
                   children: [
-                    Expanded(child: Text("Date")),
+                    Expanded(
+                        child: Text(
+                      "Date",
+                      style: TextStyle(fontSize: 18),
+                    )),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
                           onPressed: () => _selectDate(context),
-                          icon: Icon(Icons.date_range),
+                          icon: Icon(
+                            Icons.date_range,
+                            size: 34,
+                          ),
                           color: Colors.green,
                         ),
                       ],
@@ -67,10 +74,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Row(
                   children: [
-                    Expanded(child: Text("Camera")),
+                    Expanded(
+                        child: Text("Camera", style: TextStyle(fontSize: 18))),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
