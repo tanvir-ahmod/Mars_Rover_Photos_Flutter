@@ -7,8 +7,14 @@ class RoverView extends StatelessWidget {
 
   RoverView(this._rover);
 
+  TextStyle _titleTextStyle = TextStyle(fontSize: 18);
+  TextStyle _subTitleTextStyle = TextStyle(fontSize: 16, color: Colors.grey);
+
   @override
   Widget build(BuildContext context) {
+    Color statusTextColor = _rover.currentStatus.toLowerCase() == "active"
+        ? Colors.green
+        : Colors.redAccent;
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(top: 20.0),
@@ -22,8 +28,8 @@ class RoverView extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Expanded(child: Text("Name")),
-                  Expanded(child: Text(_rover.name))
+                  Expanded(child: Text("Name", style: _titleTextStyle)),
+                  Expanded(child: Text(_rover.name, style: _subTitleTextStyle))
                 ],
               ),
             ),
@@ -31,8 +37,9 @@ class RoverView extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Expanded(child: Text("Launch Date")),
-                  Expanded(child: Text(_rover.launchDate))
+                  Expanded(child: Text("Launch Date", style: _titleTextStyle)),
+                  Expanded(
+                      child: Text(_rover.launchDate, style: _subTitleTextStyle))
                 ],
               ),
             ),
@@ -40,8 +47,14 @@ class RoverView extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Expanded(child: Text("Landing Date")),
-                  Expanded(child: Text(_rover.landingDate))
+                  Expanded(
+                      child: Text(
+                    "Landing Date",
+                    style: _titleTextStyle,
+                  )),
+                  Expanded(
+                      child:
+                          Text(_rover.landingDate, style: _subTitleTextStyle))
                 ],
               ),
             ),
@@ -49,8 +62,11 @@ class RoverView extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Expanded(child: Text("Status")),
-                  Expanded(child: Text(_rover.currentStatus))
+                  Expanded(child: Text("Status", style: _titleTextStyle)),
+                  Expanded(
+                      child: Text(_rover.currentStatus,
+                          style:
+                              TextStyle(fontSize: 16, color: statusTextColor)))
                 ],
               ),
             ),
