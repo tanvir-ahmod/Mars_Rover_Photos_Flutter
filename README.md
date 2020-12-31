@@ -26,8 +26,12 @@ This app uses the [NASA Open API](https://api.nasa.gov/) to get and load picture
      * [intl](https://pub.dev/packages/intl) : To format datetime.
      * [flutter_bloc](https://pub.dev/packages/flutter_bloc): a predictable state management library for Dart.
 
+
+## Demo
+<img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/demo.gif" height="400" width="200">
+
 ## Screenshots
-<img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/demo.gif" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_140337.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_144231.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_140307.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_130136.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_142844.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_143301.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_142839.png" height="400" width="200">
+<img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_140337.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_144231.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_140307.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_130136.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_142844.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_143301.png" height="400" width="200"><img src="https://github.com/tanvir-ahmod/mars_rover_image_flutter/blob/master/screenshoots/Screenshot_20201225_142839.png" height="400" width="200">
 
 
 
